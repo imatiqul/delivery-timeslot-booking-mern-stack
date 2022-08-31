@@ -19,6 +19,7 @@ From the project root, we can run the following command to bootstrap the package
 
 ```sh
 npm install
+```
 
 ### 3. **Start the packages**
 
