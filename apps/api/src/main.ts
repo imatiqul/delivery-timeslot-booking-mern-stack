@@ -6,12 +6,19 @@
 import { Logger, VersioningType, ValidationPipe  } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { JsonLoggerService, RequestLogger, RequestLoggerOptions } from 'json-logger-service';
-
 import { AppModule } from './app/app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.connectMicroservice<MicroserviceOptions>({
+    transport: Transport.TCP,
+    options: { retryAttempts: 5, retryDelay: 3000 },
+  });
+
+  await app.startAllMicroservices();
+
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
   const port = process.env.PORT || 3333;
@@ -22,9 +29,10 @@ async function bootstrap() {
   });
 
   const config = new DocumentBuilder()
-    .setTitle('Slot Booking Microservices')
-    .setDescription('Slot Booking Microservices API description')
+    .setTitle('Delivery Microservices')
+    .setDescription('Delivery Microservices API description')
     .setVersion('1.0')
+    .addTag('delivery-booking')
     .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
