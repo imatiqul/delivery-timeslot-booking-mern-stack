@@ -35,4 +35,4 @@ npm run dev
 The above command will do the following:
 
     1. Starts the front-end package on `http://localhost:4200/`
-    2. Starts the backend api on `http://localhost:3333/api`
+    2. Starts the backend api on `http://localhost:3333/swagger`
