@@ -1,5 +1,8 @@
 ## Overview
-A codebase for MERN Stack using ...
+A codebase for MERN Stack using following tech stacks
+1. NestJS
+2. Next.js
+3. 
 
 ## Requirement
 1. [Node.js](https://nodejs.org/)
