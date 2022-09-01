@@ -9,6 +9,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { JsonLoggerService, RequestLogger, RequestLoggerOptions } from 'json-logger-service';
 import { AppModule } from './app/app.module';
+import { PrismaService } from './services/prisma.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -39,6 +40,9 @@ async function bootstrap() {
   SwaggerModule.setup('swagger', app, document);
 
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
+  
+  const prismaService = app.get(PrismaService);
+  await prismaService.enableShutdownHooks(app);
 
   await app.listen(port);
   Logger.log(`🚀 Application is running on: http://localhost:${port}/${globalPrefix}`);

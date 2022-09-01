@@ -24,6 +24,12 @@ From the project root, we can run the following command to bootstrap the package
 npm install
 ```
 
+### Seed the data
+Execute following command to seed the initial data
+```sh
+npx prisma db seed 
+```
+
 ### 3. **Start the packages**
 
 From the project root, we can run the following command to start our Node.js packages:
